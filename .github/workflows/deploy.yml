@@ -27,6 +27,16 @@ jobs:
 
       - name: Init
         run: terraform init
+      
+      - name: Verify Azure Credentials
+        run: |
+          echo "Client ID: ${{ secrets.ARM_CLIENT_ID }}"
+          echo "Tenant ID: ${{ secrets.ARM_TENANT_ID }}"
+          echo "Subscription ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}"
 
-      - name: Apply
-        run: terraform apply -auto-approve
+      - name: Debug Terraform Apply
+        run: |
+          export TF_LOG=DEBUG
+          export TF_LOG_PATH=terraform-debug.log
+          terraform apply -auto-approve
+
