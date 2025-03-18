@@ -7,6 +7,6 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "rg" {
-  name = "test-rg-24072"
+  name = "test-resgrp-24072"
   location = "East US"
 }
