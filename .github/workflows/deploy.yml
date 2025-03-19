@@ -34,13 +34,11 @@ jobs:
       - name: Role
         run:
           az role assignment create \
-          --assignee-object-id "${{ secrets.ARM_PRINCIPAL_OBJECT_ID }}" \
+          --assignee-object-id "fe063322-9270-449c-924f-d987742abf69" \
           --assignee-principal-type "ServicePrincipal" \
           --role "Contributor" \
-          --scope "/subscriptions/${{ env.ARM_SUBSCRIPTION_ID }}"
-        env:
-          ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-      
+          --scope "/subscriptions/d8d6ad8c-f635-407e-81b9-4ce76f2d5a10"      
+
       - name: Init
         run: terraform init
       
