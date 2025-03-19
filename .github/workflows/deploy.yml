@@ -5,6 +5,12 @@ on:
     branches:
       main
 
+env:
+  ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+  ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+  ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+  ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -24,6 +30,13 @@ jobs:
           -u ${{ secrets.ARM_CLIENT_ID }} \
           -p ${{ secrets.ARM_CLIENT_SECRET }} \
           --tenant ${{ secrets.ARM_TENANT_ID }}
+      
+      - name: Role
+        run:
+          az role assignment create \
+          --assignee $ARM_CLIENT_ID \
+          --role "Contributor" \
+          --scope /subscriptions/$ARM_SUBSCRIPTION_ID
 
       - name: Init
         run: terraform init
